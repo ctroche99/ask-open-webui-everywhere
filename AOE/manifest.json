@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Ask Open-WebUI Everywhere",
+  "name": "OpenWebUI",
   "version": "0.2",
   "permissions": ["sidePanel", "scripting", "activeTab", "tabs", "storage"],
   "host_permissions": ["<all_urls>"],
