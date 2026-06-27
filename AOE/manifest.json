@@ -2,8 +2,7 @@
   "manifest_version": 3,
   "name": "OpenWebUI",
   "version": "0.2",
-  "permissions": ["sidePanel", "scripting", "activeTab", "tabs", "storage"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": ["sidePanel", "storage"],
   "side_panel": { "default_path": "sidepanel.html" },
   "options_page": "options.html",
   "icons": {
