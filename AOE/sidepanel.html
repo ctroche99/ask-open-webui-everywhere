@@ -5,180 +5,164 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --bg-color: #0f172a; 
-      --toolbar-bg: #1e293b; 
-      --header-bg: #111827; 
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8; 
-      --accent-blue: #3b82f6;
-      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      /* Neutral palette aligned with Open WebUI's dark theme */
+      --bg: #0d0d0d;
+      --surface: #171717;
+      --surface-hover: #262626;
+      --border: rgba(255, 255, 255, 0.07);
+      --text: #ececec;
+      --text-muted: #8a8a8a;
+      --accent: #ffffff;
+      --ok: #10b981;
     }
 
-    body { 
-      margin: 0; 
-      display: flex; 
-      flex-direction: column; 
-      height: 100vh; 
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg-color); 
-      color: var(--text-main);
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      background: var(--bg);
+      color: var(--text);
       overflow: hidden;
     }
 
-    /* Header */
-    .header {
-      padding: 12px 16px;
+    /* Single compact top bar: brand on the left, actions on the right */
+    .topbar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      background: var(--header-bg);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      gap: 10px;
+      padding: 8px 12px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-
- 
-    .brand-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+      gap: 8px;
+      min-width: 0;
+      flex: 1;
     }
 
     .brand-icon {
-      width: 24px;
-      height: 24px;
-      background: var(--accent-gradient);
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
     }
 
     .brand-name {
       font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      color: var(--text-main);
-      line-height: 1.2;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1;
     }
 
-  
-    .brand-subtitle {
-      font-size: 9px;
-      color: var(--text-muted);
-      font-weight: 400;
-      letter-spacing: 0.2px;
-      white-space: nowrap; 
-    }
-
-    .status-tag {
-      font-size: 10px;
-      background: rgba(16, 185, 129, 0.1);
-      color: #10b981;
-      padding: 2px 8px;
-      border-radius: 10px;
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      display: flex;
+    .status {
+      display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
     }
 
     .status-dot {
       width: 6px;
       height: 6px;
-      background: #10b981;
       border-radius: 50%;
-      animation: pulse 2s infinite;
+      background: var(--ok);
     }
 
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.4; }
-      100% { opacity: 1; }
-    }
-
- 
-    .toolbar { 
-      padding: 12px 14px; 
-      display: flex; 
-      gap: 10px; 
-      background: var(--toolbar-bg); 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      z-index: 10;
+    /* Action toolbar */
+    .toolbar {
+      display: flex;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
     }
 
     .btn {
-      flex: 1;
-      height: 38px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
+      height: 30px;
+      padding: 0 10px;
       cursor: pointer;
-      border: none;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface);
+      color: var(--text);
       font-size: 12px;
-      font-weight: 600;
-      transition: all 0.2s;
-      color: white;
+      font-weight: 500;
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
 
-    #refreshBtn { background: #475569; }
-    #refreshBtn:hover { background: #64748b; }
+    .btn:hover {
+      background: var(--surface-hover);
+    }
 
-    #pasteBtn { background: var(--accent-gradient); }
-    #pasteBtn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-    #screenBtn { background: var(--accent-gradient); } 
-    #screenBtn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn:active {
+      background: var(--surface);
+    }
 
-    .icon { width: 14px; height: 14px; fill: currentColor; }
+    /* Insert actions get the available width; refresh stays compact */
+    .btn.primary { flex: 1; }
 
-    iframe { flex: 1; border: none; background: white; }
+    .btn.icon-only {
+      width: 30px;
+      padding: 0;
+    }
+
+    .icon { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
+
+    iframe { flex: 1; border: none; background: var(--bg); }
   </style>
 </head>
 <body>
 
-  <!-- Header Section -->
-  <div class="header">
+  <!-- Compact brand bar -->
+  <div class="topbar">
     <div class="brand">
       <div class="brand-icon">
-        <svg style="width:14px; height:14px; fill:white" viewBox="0 0 24 24">
+        <svg style="width:13px; height:13px; fill:var(--text)" viewBox="0 0 24 24">
           <path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z"/>
         </svg>
       </div>
-      <div class="brand-info">
-        <div class="brand-name">AOE</div>
-        <div class="brand-subtitle">Conversations powered by Open WebUI</div>
-      </div>
+      <span class="brand-name">AOE</span>
     </div>
-    <div class="status-tag">
-      <div class="status-dot"></div>
+    <div class="status">
+      <span class="status-dot"></span>
       Ready
     </div>
   </div>
 
-  <!-- Toolbar Section -->
+  <!-- Action toolbar -->
   <div class="toolbar">
-    <button id="refreshBtn" class="btn">
+    <button id="refreshBtn" class="btn icon-only" title="Refresh">
       <svg class="icon" viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-      Refresh
     </button>
-  
-    <button id="screenBtn" class="btn">
+
+    <button id="screenBtn" class="btn primary" title="Capture the current tab and insert it">
       <svg class="icon" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
       Insert Screen
     </button>
- 
-    <button id="pasteBtn" class="btn">
+
+    <button id="pasteBtn" class="btn primary" title="Extract this page's text and insert it">
       <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
       Insert Text
     </button>
-
   </div>
 
   <iframe id="targetFrame" src="about:blank"></iframe>
