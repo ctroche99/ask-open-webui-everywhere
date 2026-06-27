@@ -4,131 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    :root {
-      /* Neutral palette aligned with Open WebUI's dark theme */
-      --bg: #0d0d0d;
-      --surface: #171717;
-      --surface-hover: #262626;
-      --border: rgba(255, 255, 255, 0.07);
-      --text: #ececec;
-      --text-muted: #8a8a8a;
-      --accent: #ffffff;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      display: flex;
-      flex-direction: column;
+    html, body { margin: 0; height: 100%; }
+    body { overflow: hidden; }
+    iframe {
+      display: block;
+      border: none;
+      width: 100%;
       height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      font-size: 13px;
-      background: var(--bg);
-      color: var(--text);
-      overflow: hidden;
+      background: #0d0d0d;
     }
-
-    /* Toolbar — the only chrome above the chat: wordmark + actions */
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .wordmark {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-right: auto;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-      color: var(--text);
-    }
-
-    .wordmark img {
-      width: 18px;
-      height: 18px;
-      border-radius: 4px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 8px;
-      min-width: 0;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      height: 34px;
-      padding: 0 14px;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: var(--surface-hover);
-      color: var(--text);
-      font-size: 12.5px;
-      font-weight: 500;
-      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
-    }
-
-    .btn:hover {
-      background: #2f2f2f;
-      border-color: rgba(255, 255, 255, 0.14);
-    }
-
-    .btn:active {
-      transform: translateY(1px);
-    }
-
-    .btn.icon-only {
-      width: 34px;
-      padding: 0;
-      color: var(--text-muted);
-    }
-
-    .btn.icon-only:hover { color: var(--text); }
-
-    .icon { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
-
-    iframe { flex: 1; border: none; background: var(--bg); }
   </style>
 </head>
 <body>
-
-  <!-- Toolbar: OWUI wordmark + actions -->
-  <div class="toolbar">
-    <div class="wordmark">
-      <img src="icons/logo.png" alt="">
-      OWUI
-    </div>
-
-    <div class="actions">
-      <button id="refreshBtn" class="btn icon-only" title="Refresh">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-      </button>
-
-      <button id="screenBtn" class="btn" title="Capture the current tab and insert it">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        Insert Screen
-      </button>
-
-      <button id="pasteBtn" class="btn" title="Extract this page's text and insert it">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-        Insert Text
-      </button>
-    </div>
-  </div>
-
   <iframe id="targetFrame" src="about:blank"></iframe>
-
   <script src="sidepanel.js"></script>
 </body>
 </html>
